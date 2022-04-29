@@ -2,6 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle, theme, media } from './styles';
+import { Header, Navigation } from './features';
+import { useGetConfigByAppIdQuery } from './services/configuration';
 
 const MainWrapper = styled.div`
   padding-left: 0;
@@ -12,20 +14,33 @@ const MainWrapper = styled.div`
   `};
 `;
 
-const App = (): JSX.Element => (
-  <ThemeProvider theme={theme}>
-    <GlobalStyle />
-    <header>Placeholder for header</header>
-    <MainWrapper>
-      <nav>Placeholder for navbar</nav>
-      <Routes>
-        <Route
-          path="product/:productId"
-          element={<div>Placeholder for Product Page</div>}
-        />
-      </Routes>
-    </MainWrapper>
-  </ThemeProvider>
-);
+/**
+ * For white-labelling, use **const appIdWithOutUserSection = process.env.REACT_APP_WITH_APP_ID_TWO**
+ * in the component to apply a different configuration to the dashboard
+ */
+
+const App = () => {
+  const appIdWithUserSection = process.env.REACT_APP_WITH_APP_ID_ONE;
+  const { data: config, isLoading } =
+    useGetConfigByAppIdQuery(appIdWithUserSection);
+
+  if (isLoading) return <p>Loading...</p>;
+
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Header bgColor={config.mainColor} />
+      <MainWrapper>
+        <Navigation />
+        <Routes>
+          <Route
+            path="product/:productId"
+            element={<div>Placeholder for Product Page</div>}
+          />
+        </Routes>
+      </MainWrapper>
+    </ThemeProvider>
+  );
+};
 
 export default App;
