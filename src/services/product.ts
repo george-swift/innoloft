@@ -55,6 +55,7 @@ interface InnoloftProductData {
 type RelevantData = {
   title: string;
   type: string;
+  picture: string;
   description: string;
   categories: Item[];
   businessModels: Item[];
@@ -70,6 +71,7 @@ type RelevantData = {
 const getRelevantProductInfo = (data: InnoloftProductData): RelevantData => ({
   title: data.name,
   type: data.type.name,
+  picture: data.picture,
   description: data.description,
   categories: data.categories,
   businessModels: data.businessModels,

@@ -24,7 +24,7 @@ const Product = ({ showUser }: ProductProps) => {
     <StyledMain>
       <StyledGrid>
         <section>
-          <StyledProductImage imgUrl="/loftos.png" />
+          <StyledProductImage imgUrl={product.picture} />
           <StyledProductMainInfo>
             <p className="eyebrow">Product</p>
             <h1>{product.title}</h1>
