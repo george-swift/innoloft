@@ -77,7 +77,7 @@ const Modal = ({ categories, businessModels, trl }: ModalProps) => {
     setTagName('');
   };
 
-  const removeTag = (index: number, key) => {
+  const removeTag = (index: number, key: keyof ModalProps) => {
     const modifiedTags = [
       ...modalState[key].slice(0, index),
       ...modalState[key].slice(index + 1),
