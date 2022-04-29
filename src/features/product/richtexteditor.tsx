@@ -8,7 +8,15 @@ import {
   Descendant,
   BaseEditor,
 } from 'slate';
-import { Slate, Editable, ReactEditor, withReact, useSlate } from 'slate-react';
+import {
+  Slate,
+  Editable,
+  ReactEditor,
+  withReact,
+  useSlate,
+  RenderLeafProps,
+  RenderElementProps,
+} from 'slate-react';
 import { HistoryEditor } from 'slate-history';
 import { StyledToolbar, StyledRichTextButton } from './styles';
 
@@ -23,7 +31,9 @@ declare module 'slate' {
   }
 }
 
-const DefaultElement = props => <p {...props.attributes}>{props.children}</p>;
+const DefaultElement = (props: RenderElementProps) => (
+  <p {...props.attributes}>{props.children}</p>
+);
 
 const CustomEditor = {
   isBoldMarkActive(editor: Editor) {
@@ -126,11 +136,14 @@ const RichTextEditor = ({ description, setter }: RTEProps) => {
     },
   ];
 
-  const renderElement = useCallback(props => <DefaultElement {...props} />, []);
+  const renderElement = useCallback(
+    (props: RenderElementProps) => <DefaultElement {...props} />,
+    [],
+  );
 
   // Define a leaf rendering function that is memoized with `useCallback`.
   const renderLeaf = useCallback(
-    ({ attributes, children, leaf }) => (
+    ({ attributes, children, leaf }: RenderLeafProps) => (
       <span
         {...attributes}
         style={{
