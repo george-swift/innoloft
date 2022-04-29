@@ -6,7 +6,7 @@ type Item = {
   name: string;
 };
 
-type InnoloftProductData = {
+interface InnoloftProductData {
   id: number;
   name: string;
   description: string;
@@ -17,7 +17,13 @@ type InnoloftProductData = {
   investmentEffort: string;
   trl: Item;
   user: {
-    [details: string]: string | number;
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    sex: number;
+    profilePicture: string;
+    position: string;
   };
   company: {
     name: string;
@@ -44,7 +50,7 @@ type InnoloftProductData = {
     };
   };
   businessModels: Item[];
-};
+}
 
 type RelevantData = {
   title: string;
@@ -54,7 +60,7 @@ type RelevantData = {
   businessModels: Item[];
   trl: string;
   user: {
-    [details: string]: string | number;
+    [details: string]: string;
   };
   company: {
     [detail: string]: string;
@@ -85,7 +91,7 @@ export const productApi = createApi({
   }),
   tagTypes: ['Product'],
   endpoints: build => ({
-    getProduct: build.query({
+    getProduct: build.query<RelevantData, void>({
       query: () => ({ url: 'product/6781/', method: 'get' }),
       transformResponse: getRelevantProductInfo,
       providesTags: ['Product'],
