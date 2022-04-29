@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle, theme, media } from './styles';
-import { Header, Navigation } from './features';
+import { Header, Navigation, Product } from './features';
 import { useGetConfigByAppIdQuery } from './services/configuration';
 
 const MainWrapper = styled.div`
@@ -35,7 +35,7 @@ const App = () => {
         <Routes>
           <Route
             path="product/:productId"
-            element={<div>Placeholder for Product Page</div>}
+            element={<Product showUser={config.hasUserSection} />}
           />
         </Routes>
       </MainWrapper>
