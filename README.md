@@ -13,6 +13,7 @@
 
 - Clone this project by running `git clone https://github.com/george-swift/innoloft.git`
 - Run `npm install` to download dependencies
+- Create a `.env` file following the format in `.env.example`
 - Run the development server:
 
 ```bash
