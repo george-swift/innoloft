@@ -38,7 +38,7 @@ const DefaultElement = (props: RenderElementProps) => (
 const CustomEditor = {
   isBoldMarkActive(editor: Editor) {
     const [match] = Editor.nodes(editor, {
-      match: n => n.bold === true,
+      match: n => Text.isText(n) && n.bold === true,
       universal: true,
     });
 
@@ -47,7 +47,7 @@ const CustomEditor = {
 
   isItalicMarkActive(editor: Editor) {
     const [match] = Editor.nodes(editor, {
-      match: n => n.italic === true,
+      match: n => Text.isText(n) && n.italic === true,
       universal: true,
     });
 
@@ -58,7 +58,7 @@ const CustomEditor = {
     const isActive = CustomEditor.isBoldMarkActive(editor);
     Transforms.setNodes(
       editor,
-      { bold: isActive ? null : true },
+      { bold: isActive ? undefined : true },
       { match: n => Text.isText(n), split: true },
     );
   },
@@ -67,7 +67,7 @@ const CustomEditor = {
     const isActive = CustomEditor.isItalicMarkActive(editor);
     Transforms.setNodes(
       editor,
-      { italic: isActive ? null : true },
+      { italic: isActive ? undefined : true },
       { match: n => Text.isText(n), split: true },
     );
   },
